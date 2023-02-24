@@ -13,9 +13,9 @@ export default {
   data() {
     return {
       emailLabel: "Email",
-      email: "polaykov_d@ukr.net",
+      email: "",
       passwordLabel: "Password",
-      password: "13041937Polyakov",
+      password: "",
       showError: false,
     };
   },
