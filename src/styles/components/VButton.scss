@@ -1,0 +1,34 @@
+.v-button {
+	width: 100%;
+	border: none;
+	padding: 10px;
+	background: #1F2123;
+	border: 1px solid transparent;
+	border-radius: 66px;
+	cursor: pointer;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+
+
+	&:hover {
+		background-color: #fff;
+		border: 1px solid #1F2123;
+
+		.v-button__title {
+			color: #1F2123;
+		}
+	}
+
+	&__title {
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 16px;
+		color: #FFFFFF;
+		letter-spacing: 0.02em;
+	}
+
+	&_disabled {
+		opacity: .4;
+		cursor: not-allowed;
+	}
+}

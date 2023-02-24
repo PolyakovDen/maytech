@@ -1,0 +1,41 @@
+.image-item {
+	border-radius: 8px;
+	background-color: #f0f5fe;
+	padding: 4px 8px;
+	margin-bottom: 12px;
+
+	&:last-child {
+		margin-bottom: 0;
+	}
+
+	&__preview {
+		width: 40px;
+		height: 40px;
+		object-fit: contain;
+	}
+
+	&__info {
+		margin-left: 8px;
+		min-width: 20px;
+
+		p {
+			color: #1f2123;
+			word-break: break-word;
+			font-weight: 600;
+			font-size: 14px;
+			line-height: 20px;
+		}
+
+		span {
+			color: #55575d;
+			font-weight: 400;
+			font-size: 12px;
+			line-height: 16px;
+		}
+	}
+
+	&__delete {
+		margin-left: auto;
+		cursor: pointer;
+	}
+}

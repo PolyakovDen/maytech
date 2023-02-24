@@ -1,0 +1,16 @@
+@import './setup/styles';
+@import './basics/styles';
+
+@import './components/styles';
+@import './views/styles';
+
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#app,
+section {
+  min-height: 100vh;
+}

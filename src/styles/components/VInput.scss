@@ -1,0 +1,44 @@
+.v-input {
+	width: 300px;
+	margin-bottom: 12px;
+
+	&__input {
+		height: 30px;
+		margin-top: 8px;
+		border: 1px solid #E8E9EA;
+		border-radius: 8px;
+		font-weight: 400;
+		font-size: 12px;
+		line-height: 15px;
+		color: #292D36;
+		padding-left: 8px;
+		-webkit-transition: 0.5s;
+		transition: 0.5s;
+		outline: none;
+
+		&:focus {
+			border-color: #1EB4EF;
+		}
+
+		&::placeholder {
+			color: #8C8F96;
+			font-size: 12px;
+			opacity: 1;
+		}
+		
+		&:-ms-input-placeholder {
+			color: #8C8F96;
+		}
+		
+		&::-ms-input-placeholder {
+			color: #8C8F96;
+		}
+	}
+	
+	&__label {
+		font-weight: 600;
+		font-size: 12px;
+		line-height: 15px;
+		color: #3A3C40;
+	}
+}
