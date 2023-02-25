@@ -21,7 +21,7 @@ export default {
     isLoggedIn: function () {
       return this.$store.getters.isAuthenticated;
     },
-    ...mapGetters(["outgoingId"]),
+    ...mapGetters(["homeId"]),
   },
   async created() {
     await this.$store.dispatch("GetProfile");
@@ -51,14 +51,18 @@ export default {
           },
         };
 
-        const link = await axios.post("/upload/link", body, config);
+        const link = await axios.post(
+          "https://denys-trial-task.quatrix.it/api/1.0/upload/link",
+          body,
+          config
+        );
         console.log(link);
         const chunked = await axios.post(
-          `/upload/chunked/${link.data.upload_key}`
+          `https://denys-trial-task.quatrix.it/api/upload/chunked/${link.data.upload_key}`
         );
         console.log(chunked);
         const finalize = await axios.get(
-          `/upload/finalize/${link.data.upload_key}`,
+          `https://denys-trial-task.quatrix.it/api/1.0/upload/finalize/${link.data.upload_key}`,
           config
         );
         console.log(finalize);
