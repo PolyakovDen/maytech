@@ -37,9 +37,10 @@ export default {
     async uploadImages() {
       for (let i = 0; i < this.imagesArray.length; i++) {
         const body = {
-          name: this.imagesArray[i].name,
           file_size: this.imagesArray[i].size,
+          name: this.imagesArray[i].name,
           parent_id: this.$store.getters.profile.outgoing_id,
+          upload_type: "chunked",
         };
 
         const config = {
@@ -48,7 +49,17 @@ export default {
           },
         };
 
-        await axios.post("/upload/link", body, config);
+        const link = await axios.post("/upload/link", body, config);
+        console.log(link);
+        const chunked = await axios.post(
+          `/upload/chunked/${link.data.upload_key}`
+        );
+        console.log(chunked);
+        const finalize = await axios.get(
+          `/upload/finalize/${link.data.upload_key}`,
+          config
+        );
+        console.log(finalize);
       }
 
       this.isUploaded = true;
