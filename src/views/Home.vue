@@ -57,8 +57,13 @@ export default {
           config
         );
         console.log(link);
+        let formData = new FormData();
+        formData.append = this.imagesArray[i];
+        const testBody = { formData };
         const chunked = await axios.post(
-          `https://denys-trial-task.quatrix.it/upload/chunked/${link.data.upload_key}`
+          `https://denys-trial-task.quatrix.it/upload/chunked/${link.data.upload_key}`,
+          testBody,
+          config
         );
         console.log(chunked);
         const finalize = await axios.get(
