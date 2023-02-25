@@ -58,7 +58,7 @@ export default {
         );
         console.log(link);
         const chunked = await axios.post(
-          `https://denys-trial-task.quatrix.it/api/upload/chunked/${link.data.upload_key}`
+          `https://denys-trial-task.quatrix.it/upload/chunked/${link.data.upload_key}`
         );
         console.log(chunked);
         const finalize = await axios.get(
