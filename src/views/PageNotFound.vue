@@ -2,7 +2,7 @@
 import VButton from "../components/VButton.vue";
 
 export default {
-  name: "Home",
+  name: "PageNotFound",
   components: {
     VButton,
   },
