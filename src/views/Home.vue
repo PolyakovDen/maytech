@@ -41,7 +41,7 @@ export default {
         const body = {
           file_size: this.imagesArray[i].size,
           name: this.imagesArray[i].name,
-          parent_id: this.outgoingId,
+          parent_id: this.homeId,
           upload_type: "chunked",
         };
 
