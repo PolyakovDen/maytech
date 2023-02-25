@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+import { mapGetters } from "vuex";
 
 import VButton from "../components/VButton.vue";
 import ImageItem from "../components/ImageItem.vue";
@@ -20,6 +21,7 @@ export default {
     isLoggedIn: function () {
       return this.$store.getters.isAuthenticated;
     },
+    ...mapGetters(["outgoingId"]),
   },
   async created() {
     await this.$store.dispatch("GetProfile");
@@ -39,7 +41,7 @@ export default {
         const body = {
           file_size: this.imagesArray[i].size,
           name: this.imagesArray[i].name,
-          parent_id: this.$store.getters.profile.outgoing_id,
+          parent_id: this.outgoingId,
           upload_type: "chunked",
         };
 

@@ -6,8 +6,9 @@ const state = {
 
 const getters = {
   isAuthenticated: (state) => !!state.token,
-  profile: (state) => state.user,
+  profile: (state) => state.profile,
   token: (state) => state.token,
+  outgoingId: (state) => state.profile.outgoing_id,
 };
 
 const actions = {
@@ -35,8 +36,8 @@ const actions = {
   },
   async LogOut({ commit }) {
     let token = null;
-    let user = null;
-    commit("logout", token, user);
+    let profile = null;
+    commit("logout", token, profile);
   },
 };
 
@@ -44,8 +45,8 @@ const mutations = {
   setToken(state, token) {
     state.token = token;
   },
-  setProfile(state, user) {
-    state.profile = user;
+  setProfile(state, profile) {
+    state.profile = profile;
   },
   logout(state) {
     state.token = null;
