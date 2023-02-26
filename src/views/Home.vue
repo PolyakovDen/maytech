@@ -37,7 +37,7 @@ export default {
     preloadImages(files) {
       this.imagesArray = files;
 
-      this.isUploaded = false;
+      this.isImagesUploaded = false;
     },
     onProgress(percent) {
       this.uploadPercentage = percent;
@@ -109,7 +109,7 @@ export default {
         <v-button
           class="home__button"
           title="Upload"
-          :disabled="isImagesUploaded"
+          :disabled="uploadingImageIndex !== null || isImagesUploaded"
           @click="uploadImages"
         />
       </div>
