@@ -1,0 +1,23 @@
+.drag-drop-zone {
+	margin-top: 20px;
+  width: 500px;
+  height: 250px;
+  border: 1px dashed #1f2123;
+  border-radius: 8px;
+  cursor: pointer;
+	background-color: #fff;
+
+	&__title {
+		font-weight: 700;
+		font-size: 18px;
+		line-height: 24px;
+	}
+
+	&__description {
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 16px;
+		font-style: italic;
+		margin-top: 8px;
+	}
+}

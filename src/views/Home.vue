@@ -3,6 +3,7 @@ import { mapGetters } from "vuex";
 
 import VButton from "../components/VButton.vue";
 import ImageItem from "../components/ImageItem.vue";
+import DragDropImageInput from "../components/DragDropImageInput.vue";
 
 import { Uploader } from "@/services/Uploader";
 
@@ -11,6 +12,7 @@ export default {
   components: {
     VButton,
     ImageItem,
+    DragDropImageInput,
   },
   data: () => ({
     imagesArray: [],
@@ -33,9 +35,7 @@ export default {
       this.$router.push("/login");
     },
     preloadImages(files) {
-      for (let i = 0; i < files.length; i++) {
-        this.imagesArray.push(files[i]);
-      }
+      this.imagesArray = files;
 
       this.isUploaded = false;
     },
@@ -89,22 +89,8 @@ export default {
       @click="logout"
     />
 
-    <div class="file-select d-flex flex-column justify-center align-center">
-      <input
-        class="file-select__input"
-        ref="fileInput"
-        type="file"
-        multiple="multiple"
-        accept="image/jpeg, image/png, image/jpg"
-        @change="preloadImages($event.target.files)"
-      />
-
-      <div
-        class="file-select__placeholder d-flex justify-center align-center"
-        @click="$refs.fileInput.click()"
-      >
-        <span>Choose an Images</span>
-      </div>
+    <div class="d-flex flex-column justify-center align-center">
+      <drag-drop-image-input @fileChange="preloadImages" />
 
       <div
         class="file-select__preview d-flex flex-column"
