@@ -31,6 +31,7 @@ export default {
   data() {
     return {
       isDragging: false,
+      filesArray: [],
     };
   },
   methods: {
@@ -45,12 +46,10 @@ export default {
           alert("Select only an image!");
 
           return;
-        } else {
-          let filesArray = [];
-          filesArray.push(file);
-
-          this.$emit("fileChange", filesArray);
         }
+        this.filesArray.push(file);
+
+        this.$emit("fileChange", this.filesArray);
       }
     },
     dragover() {
