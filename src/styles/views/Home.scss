@@ -3,11 +3,9 @@
 	background-color: rgba(31, 33, 35, .05);
 
 	&__button {
-		&_back {
-			width: 90px;
-			border-radius: 6px;
-			margin-left: auto;
-		}
+		width: 90px;
+		border-radius: 6px;
+		margin-left: auto;
 	}
 
 	.file-select {
@@ -34,13 +32,20 @@
 			}
 		}
 
-		&__images {
+		&__preview {
 			margin-top: 20px;
 			background-color: #fff;
 			border-radius: 8px;
 			padding: 16px;
 			box-shadow: 0 0 1px #0003141f, 0 2px 4px 1px #0003140a;
-			width: 320px;
+			width: 420px;
 		}
+
+		&__images {
+			max-height: 360px;
+			overflow-y: scroll;
+			margin-bottom: 24px;
+		}
+		
 	}
 }

@@ -14,7 +14,7 @@ const getters = {
 const actions = {
   async LogIn({ commit }, token) {
     await axios
-      .get("https://denys-trial-task.quatrix.it/api/1.0/session/login", {
+      .get("/session/login", {
         headers: {
           Authorization: `Basic ${token}`,
         },
@@ -25,7 +25,7 @@ const actions = {
   },
   async GetProfile({ commit, state }) {
     await axios
-      .get("https://denys-trial-task.quatrix.it/api/1.0/profile", {
+      .get("/profile", {
         headers: {
           "X-Auth-Token": state.token,
         },

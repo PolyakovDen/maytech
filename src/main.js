@@ -6,7 +6,7 @@ import axios from "axios";
 import VueAxios from "vue-axios";
 
 axios.defaults.withCredentials = false;
-// axios.defaults.baseURL = "https://denys-trial-task.quatrix.it/api/1.0";
+axios.defaults.baseURL = "https://denys-trial-task.quatrix.it/api/1.0";
 
 axios.interceptors.response.use(undefined, function (error) {
   if (error) {

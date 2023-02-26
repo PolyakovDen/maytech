@@ -34,8 +34,34 @@
 		}
 	}
 
-	&__delete {
+	&__progress {
+		margin-top: 10px;
+    height: 4px;
+    border-radius: 16px;
+    width: 220px;
+    background-color: #C4D5FC;
+
+    &-line {
+      transition: width 0.5s;
+      height: inherit;
+      border-radius: inherit;
+      background-color: #2563F4;
+    }
+  }
+
+	&__status {
 		margin-left: auto;
+
+		span {
+			color: #55575d;
+			font-weight: 400;
+			font-size: 10px;
+			line-height: 16px;
+			margin-right: 4px;
+		}
+	}
+
+	&__delete {
 		cursor: pointer;
 	}
 }

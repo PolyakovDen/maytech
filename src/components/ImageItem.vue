@@ -6,6 +6,19 @@ export default {
       type: File,
       required: true,
     },
+    isLoading: {
+      type: Boolean,
+    },
+    progress: {
+      type: Number,
+    },
+  },
+  computed: {
+    uploadStatus: function () {
+      if (this.isLoading) return "Uploading";
+      else if (this.image.uploaded) return "Uploaded";
+      return "Unuploaded";
+    },
   },
   methods: {
     getImagePreview(image) {
@@ -27,10 +40,17 @@ export default {
     <img class="image-item__preview" :src="getImagePreview(image)" />
     <div class="image-item__info">
       <p>{{ image.name }}</p>
-      <span>{{ getImageSize(image.size) }}</span>
+
+      <div v-if="isLoading" class="image-item__progress">
+        <div class="image-item__progress-line" :style="`width: ${progress}%`" />
+      </div>
+      <span v-else>{{ getImageSize(image.size) }}</span>
     </div>
-    <div class="image-item__delete" @click="$emit('delete')">
-      <img src="../assets/trash.svg" alt="Delete" width="20" height="20" />
+    <div class="image-item__status d-flex align-center">
+      <span>{{ uploadStatus }}</span>
+      <div class="image-item__delete" @click="$emit('delete')">
+        <img src="../assets/trash.svg" alt="Delete" width="20" height="20" />
+      </div>
     </div>
   </div>
 </template>

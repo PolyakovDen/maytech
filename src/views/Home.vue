@@ -1,9 +1,10 @@
 <script>
-import axios from "axios";
 import { mapGetters } from "vuex";
 
 import VButton from "../components/VButton.vue";
 import ImageItem from "../components/ImageItem.vue";
+
+import { Uploader } from "@/services/Uploader";
 
 export default {
   name: "Home",
@@ -11,12 +12,12 @@ export default {
     VButton,
     ImageItem,
   },
-  data() {
-    return {
-      imagesArray: [],
-      isUploaded: false,
-    };
-  },
+  data: () => ({
+    imagesArray: [],
+    isImagesUploaded: false,
+    uploadPercentage: 0,
+    uploadingImageIndex: null,
+  }),
   computed: {
     isLoggedIn: function () {
       return this.$store.getters.isAuthenticated;
@@ -35,45 +36,42 @@ export default {
       for (let i = 0; i < files.length; i++) {
         this.imagesArray.push(files[i]);
       }
+
+      this.isUploaded = false;
+    },
+    onProgress(percent) {
+      this.uploadPercentage = percent;
     },
     async uploadImages() {
       for (let i = 0; i < this.imagesArray.length; i++) {
-        const body = {
-          file_size: this.imagesArray[i].size,
-          name: this.imagesArray[i].name,
-          parent_id: this.homeId,
-          upload_type: "chunked",
-        };
+        if (!this.imagesArray[i].uploaded) {
+          this.uploadingImageIndex = i;
+          this.imagesArray[i].uploaded = false;
 
-        const config = {
-          headers: {
-            "X-Auth-Token": this.$store.getters.token,
-          },
-        };
+          const link = await Uploader.uploadImagesLink(
+            this.imagesArray[i],
+            this.homeId,
+            this.$store.getters.token
+          );
 
-        const link = await axios.post(
-          "https://denys-trial-task.quatrix.it/api/1.0/upload/link",
-          body,
-          config
-        );
-        console.log(link);
-        let formData = new FormData();
-        formData.append = this.imagesArray[i];
-        const testBody = { formData };
-        const chunked = await axios.post(
-          `https://denys-trial-task.quatrix.it/upload/chunked/${link.data.upload_key}`,
-          testBody,
-          config
-        );
-        console.log(chunked);
-        const finalize = await axios.get(
-          `https://denys-trial-task.quatrix.it/api/1.0/upload/finalize/${link.data.upload_key}`,
-          config
-        );
-        console.log(finalize);
+          await Uploader.uploadImagesChuncked(
+            this.imagesArray[i],
+            link.upload_key,
+            this.onProgress
+          );
+
+          await Uploader.uploadImagesFinalized(
+            link.upload_key,
+            this.$store.getters.token
+          );
+
+          this.imagesArray[i].uploaded = true;
+          this.uploadingImageIndex = null;
+          this.uploadPercentage = 0;
+        }
+
+        this.isImagesUploaded = true;
       }
-
-      this.isUploaded = true;
     },
     deleteImage(index) {
       return this.imagesArray.splice(index, 1);
@@ -86,7 +84,7 @@ export default {
   <section class="home d-flex flex-column">
     <v-button
       v-if="isLoggedIn"
-      class="home__button_back"
+      class="home__button"
       title="Log out"
       @click="logout"
     />
@@ -109,19 +107,23 @@ export default {
       </div>
 
       <div
-        class="file-select__images d-flex flex-column"
+        class="file-select__preview d-flex flex-column"
         v-if="imagesArray.length"
       >
-        <image-item
-          v-for="(image, index) in imagesArray"
-          :key="index"
-          :image="image"
-          @delete="deleteImage(index)"
-        />
+        <div class="file-select__images">
+          <image-item
+            v-for="(image, index) in imagesArray"
+            :key="index"
+            :image="image"
+            :progress="uploadPercentage"
+            :is-loading="index === uploadingImageIndex"
+            @delete="deleteImage(index)"
+          />
+        </div>
         <v-button
-          class="home__button_back"
+          class="home__button"
           title="Upload"
-          :disabled="isUploaded"
+          :disabled="isImagesUploaded"
           @click="uploadImages"
         />
       </div>
